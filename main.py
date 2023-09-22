@@ -3,7 +3,6 @@ import logging
 import shutil
 from colorama import Fore
 
-intWarning = 0
 
 # Set up logs
 def log_setup():
@@ -16,8 +15,6 @@ def cpu_usage(threshold=80):
     if fCurrent > threshold:
         logging.warning("CPU Usage: Warning CPU usage is at" + str(fCurrent))
         print(Fore.RED + "Warning: Check Log")
-        global intWarning
-        intWarning += 1 
     else:
         print(Fore.GREEN + "CPU Usage: Okay")
         print(fCurrent)
@@ -33,9 +30,7 @@ def disk_space(threshold_gb=20):
         if free_gb < threshold_gb:
             logging.warning("Warning: Free disk space is below the threshold", threshold_gb)
             print(Fore.RED + "Warning: Check Log")
-            logging.warning("Total:" + str(total_gb) + "Used:" + str(used_gb) + "Free:" + str(free_gb))
-            global intWarning
-            intWarning += 1 
+            logging.warning("Total:" + str(total_gb) + "Used:" + str(used_gb) + "Free:" + str(free_gb)) 
         else:
             print(Fore.GREEN + "Disk Space: Okay") 
             print("Total: " + str(total_gb) + "GiB")
@@ -50,9 +45,5 @@ def main():
     log_setup()
     cpu_usage()
     disk_space()
-    if intWarning >= 1:
-        print(Fore.RED + "YOU HAVE ERRORS PLEASE CHECK LOG ")
-    else: 
-        print(Fore.GREEN + "Your system is healthy")
     print("Health Check Complete")
 main()
